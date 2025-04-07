@@ -1,12 +1,17 @@
 from stats import calc_num_of_words
 from stats import count_characters
 from stats import sort_dict
+import sys
 
 def get_book_text(f):
         return f.read()
 
 def main():
-    with open("books/frankenstein.txt") as f:
+    if len(sys.argv) < 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    book_path = sys.argv[1]
+    with open(book_path) as f:
         output = get_book_text(f)
         num_word = f"Found {calc_num_of_words(output)} total words"
         raw_dict = count_characters(output)
@@ -20,5 +25,5 @@ def main():
         if i["key"].isalpha():
             print(i["key"] + ":", i["value"])
     print("=============END===============")
-    
+
 main()
